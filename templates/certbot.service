@@ -6,5 +6,5 @@ OnFailure=failmail@%N.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/certbot{% if certbot.verbose %} -v {% endif %}{% if certbot.dry_run %} --dry-run{% endif %} certonly --standalone -n -d {{ certbot.domains | join(',')}}
+ExecStart=/usr/bin/certbot{% if certbot_verbose %} -v {% endif %}{% if certbot_dry_run %} --dry-run{% endif %} certonly --standalone -n -d {{ certbot_domains | join(',')}}
 PrivateTmp=true
