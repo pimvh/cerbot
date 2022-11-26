@@ -2,7 +2,7 @@
 - name: Verify that required variables are defined
   ansible.builtin.assert:
     that:
-      - "{{ item }}  is defined"
+      - "{{ item }} is defined"
       - "{{ item }} | length > 0"
       - "{{ item }} != None"
     fail_msg: "{{ item }} needs to be set for the role to work"
@@ -12,6 +12,17 @@
   loop:
     - certbot_email
     - certbot_domains
+
+- name: Verify that required boolean variables are defined
+  ansible.builtin.assert:
+    that:
+      - "{{ item }} is defined"
+      - "{{ item }} != None"
+    fail_msg: "{{ item }} needs to be set for the role to work"
+    success_msg: "Required variable {{ item }} is defined"
+  changed_when: false
+  diff: false
+  loop:
     - certbot_verbose
     - certbot_dry_run
     - certbot_hooks_enabled
