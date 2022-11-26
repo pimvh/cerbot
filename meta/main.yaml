@@ -19,6 +19,8 @@ galaxy_info:
     - certbot
     - acme
     - cert
+    - hooks
+    - nftables
 
 dependencies:
   - role: pimvh.systemd-failmail
