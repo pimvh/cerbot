@@ -1,0 +1,13 @@
+#!/bin/zsh
+{{ ansible_managed | comment }}
+
+# Get the HTTP allow rule from the firewall i
+rule=$(nft -n -a list chain inet firewall input | grep -E "^\s*tcp dport 80 accept # handle [1-9][0-9]*")
+
+# Get the handle from the line
+handle=$( echo $rule | grep -oE "# handle [0-9]+" | grep -oE "[0-9]+")
+
+nft delete rule inet firewall input handle $handle
+
+
+

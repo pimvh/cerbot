@@ -1,0 +1,78 @@
+---
+- name: Assert required variables for role are defined
+  ansible.builtin.include_tasks:
+    file: assert.yaml
+    apply:
+      delegate_to: localhost
+      run_once: true
+  tags:
+    - certbot_assert
+
+- name: Install cerbot
+  package:
+    name: certbot
+    state: present
+  become: true
+  tags:
+    - certbot_install
+
+- name: Template pre- and post-hooks
+  template:
+    src: "{{ item }}.j2"
+    dest: /etc/letsencrypt/renewal-hooks/{{ item }}
+    mode: u=rwx,g=x,o=x
+    owner: root
+    group: root
+  become: true
+  loop:
+    - "pre/open_firewall_http"
+    - "post/close_firewall_http"
+  when: certbot_hooks_enabled
+  tags:
+    - certbot_update
+
+- name: Move certbot service and validate
+  block:
+    - name: Move certbot service to host
+      template:
+        src: certbot.service
+        dest: /lib/systemd/system/certbot.service
+        # does not work using Ansible
+        # validate: "systemd-analyze verify %s"
+        owner: root
+        group: root
+        mode: u=rw,g=r,o=r
+      become: true
+      register: cerbot_template
+
+    - name: Validate certbot service
+      command: systemd-analyze verify certbot.service
+      args:
+        chdir: "/lib/systemd/system"
+      changed_when: false
+      become: true
+  tags:
+    - certbot_update
+
+- name: Make renewal directory
+  file:
+    path: /etc/letsencrypt/renewal
+    state: directory
+    mode: u=rwx,g=rx,o=rx
+    owner: root
+    group: root
+  become: true
+  tags:
+    - certbot_setup
+
+- name: Template config file
+  template:
+    src: cli.ini.j2
+    dest: /etc/letsencrypt/renewal/cli.ini
+    mode: u=rw,g=r,o=r
+    owner: root
+    group: root
+  become: true
+  notify: "enable certbot timer"
+  tags:
+    - certbot_update

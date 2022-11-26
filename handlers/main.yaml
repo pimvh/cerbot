@@ -1,0 +1,8 @@
+---
+- name: enable certbot
+  systemd:
+    name: certbot.timer
+    enabled: true
+    daemon_reload: true
+  become: true
+  listen: "enable certbot timer"

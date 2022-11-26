@@ -1,0 +1,4 @@
+#!/bin/zsh
+{{ ansible_managed | comment }}
+
+nft add rule inet firewall input tcp dport http accept

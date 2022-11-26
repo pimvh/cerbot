@@ -1,0 +1,10 @@
+[Unit]
+Description=Certbot service
+Documentation=file:///usr/share/doc/python-certbot-doc/html/index.html
+Documentation=https://certbot.eff.org/docs
+OnFailure=failmail@%N.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/certbot{% if certbot.verbose %} -v {% endif %}{% if certbot.dry_run %} --dry-run{% endif %} certonly --standalone -n -d {{ certbot.domains | join(',')}}
+PrivateTmp=true

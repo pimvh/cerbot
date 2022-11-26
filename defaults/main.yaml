@@ -1,0 +1,7 @@
+---
+certbot_email: ""
+certbot_domains: []
+
+certbot_verbose: false
+certbot_dry_run: false
+certbot_hooks_enabled: true
