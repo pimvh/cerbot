@@ -32,7 +32,7 @@ agree-tos = true
 # Hooks
 {% if certbot_hooks_enabled %}
 pre-hook = /etc/letsencrypt/renewal-hooks/pre/open_firewall_http
-post-hook = /etc/letsencrypt/renewal-hooks/pre/close_firewall_http
+post-hook = /etc/letsencrypt/renewal-hooks/post/close_firewall_http
 {% endif %}
 
 # An example of using an alternate ACME server that uses EAB credentials
