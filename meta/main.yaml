@@ -24,3 +24,38 @@ galaxy_info:
 
 dependencies:
   - role: pimvh.systemd_failmail
+
+argument_specs:
+  main:
+    short_description: The main entry point for the certbot role.
+    description: |
+      This entrypoint configure the certbot service with the requested domains.
+    options:
+      certbot_email:
+        type: str
+        required: true
+        description: "The email for receiving certificate notification from certbot."
+
+      certbot_domains:
+        type: "list"
+        required: true
+        description: "The list of domains to request certificate for using certbot."
+        elements: str
+
+      certbot_verbose:
+        type: bool
+        description: "Whether certbot should run in verbose mode or not."
+        required: false
+        default: false
+
+      certbot_dry_run:
+        type: bool
+        description: "Whether certbot should dry-run or not."
+        required: false
+        default: false
+
+      certbot_hooks_enabled:
+        type: bool
+        required: false
+        default: true
+        description: "Whether nftables based hooks should be enabled"
