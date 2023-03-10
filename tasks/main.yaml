@@ -27,6 +27,20 @@
   tags:
     - certbot_setup
 
+- name: Make renewal-hooks directory
+  file:
+    path: "/etc/letsencrypt/renewal-hooks/{{ item }}"
+    state: directory
+    mode: u=rwx,g=rx,o=rx
+    owner: root
+    group: root
+  become: true
+  loop:
+    - pre
+    - post
+  tags:
+    - certbot_setup
+
 - name: Template pre- and post-hooks
   template:
     src: "{{ item }}.j2"
