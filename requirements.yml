@@ -1,3 +1,4 @@
 ---
-roles: []
+roles:
+  - name: pimvh.systemd_failmail
 collections: []
