@@ -1,0 +1,7 @@
+---
+certbot_email: "foo@example.com"
+certbot_domains:
+  - "example.com"
+certbot_verbose: false
+certbot_dry_run: true
+certbot_hooks_enabled: false
