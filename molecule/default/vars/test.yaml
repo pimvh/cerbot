@@ -1,4 +1,6 @@
 ---
+systemd_failmail_email: "foo@example.com"
+
 certbot_email: "foo@example.com"
 certbot_domains:
   - "example.com"

@@ -1,6 +1,6 @@
 ---
-- name: enable certbot
-  systemd:
+- name: Enable certbot
+  ansible.builtin.systemd:
     name: certbot.timer
     enabled: true
     daemon_reload: true
