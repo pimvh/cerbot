@@ -54,8 +54,11 @@ argument_specs:
         required: false
         default: false
 
-      certbot_hooks_enabled:
-        type: bool
+      certbot_hooks:
+        type: list
+        choices:
+          - nftables
+          - nginx
         required: false
-        default: true
-        description: "Whether nftables based hooks should be enabled"
+        default: []
+        description: "Which hooks should be enabled"

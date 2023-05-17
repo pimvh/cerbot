@@ -29,8 +29,8 @@ email = {{ certbot_email }}
 # Uncomment to automatically agree to the terms of service of the ACME server
 agree-tos = true
 
+{% if certbot_hooks is defined and certbot_hooks|length %}
 # Hooks
-{% if certbot_hooks_enabled %}
 pre-hook = /etc/letsencrypt/renewal-hooks/pre/open_firewall_http
 post-hook = /etc/letsencrypt/renewal-hooks/post/close_firewall_http
 {% endif %}

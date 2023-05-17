@@ -7,7 +7,6 @@ rule=$(nft -n -a list chain inet firewall input | grep -E "^\s*tcp dport 80 acce
 # Get the handle from the line
 handle=$( echo $rule | grep -oE "# handle [0-9]+" | grep -oE "[0-9]+")
 
+# delete the rule at the handle
 nft delete rule inet firewall input handle $handle
-
-
 
