@@ -14,7 +14,8 @@ Review the variables as shown in defaults.
 
 ```
 certbot_email: ""
-certbot_domains: []
+certbot_domains: [] # domains to request a cert for
+certbook_hooks: [] # scripts to run when requesting a new certificate
 
 certbot_verbose: false
 certbot_dry_run: false
