@@ -34,7 +34,7 @@
 
 - name: Template pre- and post-hooks
   ansible.builtin.template:
-    src: "{{ item }}.j2"
+    src: "{{ item.file }}.j2"
     dest: "/etc/letsencrypt/renewal-hooks/{{ item.file }}"
     mode: u=rwx,g=x,o=x
     owner: root
