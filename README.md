@@ -1,4 +1,4 @@
-![Molecule test](https://github.com/pimvh/certbot/actions/workflow/test.yaml/badge.svg)
+![Molecule test](https://github.com/pimvh/certbot/actions/workflows/test.yaml/badge.svg)
 # Requirements
 
 1. Ansible installed:
