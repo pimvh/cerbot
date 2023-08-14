@@ -1,0 +1,4 @@
+#!/bin/bash
+
+{% if 'nginx' in certbot_hooks %}source {{ certbot_hooks_dir }}/pre/10-stop_nginx{% endif +%}
+{% if 'nftables' in certbot_hooks %}source {{ certbot_hooks_dir }}/pre/20-open_firewall_http{% endif %}

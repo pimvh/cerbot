@@ -42,10 +42,26 @@
   become: true
   when: item.slug in certbot_hooks
   loop:
-    - {file: "pre/open_firewall_http", slug: nftables}
-    - {file: "post/close_firewall_http", slug: nftables}
-    - {file: "pre/stop_nginx", slug: nginx}
-    - {file: "post/start_nginx", slug: nginx}
+    # enforce ordering using debian configuration file  style
+    - {file: "pre/20-open_firewall_http", slug: nftables}
+    - {file: "post/20-close_firewall_http", slug: nftables}
+    - {file: "pre/10-stop_nginx", slug: nginx}
+    - {file: "post/10-start_nginx", slug: nginx}
+  tags:
+    - certbot_update
+
+- name: Template hook scripts
+  ansible.builtin.template:
+    src: "{{ item.file }}.j2"
+    dest: "/etc/letsencrypt/renewal-hooks/{{ item.file }}"
+    mode: u=rwx,g=x,o=x
+    owner: root
+    group: root
+  become: true
+  loop:
+    # enforce ordering using debian configuration file  style
+    - {file: "pre/hooks"}
+    - {file: "post/hooks"}
   tags:
     - certbot_update
 
@@ -64,6 +80,7 @@
         mode: u=rw,g=r,o=r
       become: true
       register: cerbot_template
+      notify: "reload systemd"
 
     - name: Validate certbot service
       ansible.builtin.command: systemd-analyze verify certbot.service
@@ -72,21 +89,10 @@
       changed_when: false
       become: true
 
-- name: Make renewal directory
-  ansible.builtin.file:
-    path: /etc/letsencrypt/renewal
-    state: directory
-    mode: u=rwx,g=rx,o=rx
-    owner: root
-    group: root
-  become: true
-  tags:
-    - certbot_setup
-
 - name: Template config file
   ansible.builtin.template:
     src: cli.ini.j2
-    dest: /etc/letsencrypt/renewal/cli.ini
+    dest: /etc/letsencrypt/cli.ini
     mode: u=rw,g=r,o=r
     owner: root
     group: root

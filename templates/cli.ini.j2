@@ -31,8 +31,8 @@ agree-tos = true
 
 {% if certbot_hooks is defined and certbot_hooks|length %}
 # Hooks
-pre-hook = /etc/letsencrypt/renewal-hooks/pre/open_firewall_http
-post-hook = /etc/letsencrypt/renewal-hooks/post/close_firewall_http
+pre-hook = /etc/letsencrypt/renewal-hooks/pre/hooks
+post-hook = /etc/letsencrypt/renewal-hooks/post/hooks
 {% endif %}
 
 # An example of using an alternate ACME server that uses EAB credentials
@@ -40,7 +40,7 @@ post-hook = /etc/letsencrypt/renewal-hooks/post/close_firewall_http
 # eab-kid = somestringofstuffwithoutquotes
 # eab-hmac-key = yaddayaddahexhexnotquoted
 
-# Ubuntu defaults
+# Debian/Ubuntu defaults
 # Because we are using logrotate for greater flexibility, disable the
 # internal certbot logrotation.
 max-log-backups = 0

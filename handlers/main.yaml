@@ -1,4 +1,10 @@
 ---
+- name: Force systemd to reread configs
+  ansible.builtin.systemd:
+    daemon_reload: true
+  listen: "reload systemd"
+  become: true
+
 - name: Enable certbot
   ansible.builtin.systemd:
     name: certbot.timer
