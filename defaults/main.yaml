@@ -4,4 +4,6 @@ certbot_domains: []
 
 certbot_verbose: false
 certbot_dry_run: false
+
+certbot_hooks_dir: "/etc/letsencrypt/renewal-hooks"
 certbot_hooks: []

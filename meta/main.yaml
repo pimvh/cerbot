@@ -37,7 +37,7 @@ argument_specs:
         description: "The email for receiving certificate notification from certbot."
 
       certbot_domains:
-        type: "list"
+        type: list
         required: true
         description: "The list of domains to request certificate for using certbot."
         elements: str
@@ -53,6 +53,12 @@ argument_specs:
         description: "Whether certbot should dry-run or not."
         required: false
         default: false
+
+      certbot_hooks_dir:
+        type: str
+        required: false
+        default: "/etc/letsencrypt/renewal-hooks/"
+        description: "Where hooks are placed on the filesystem"
 
       certbot_hooks:
         type: list
